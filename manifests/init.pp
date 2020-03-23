@@ -6,6 +6,10 @@
 #   include security
 class security {
 
+  class { 'motd':
+    issue_template => epp('security/issue.epp'),
+  }
+
   class { 'ntp':
     servers => ['tick.usno.navy.mil','tock.usno.navy.mil ','ntp2.usno.navy.mil'],
   }
