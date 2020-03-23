@@ -7,15 +7,17 @@
 class security {
 
   class { 'ntp':
-        servers => ['tick.usno.navy.mil','tock.usno.navy.mil ','ntp2.usno.navy.mil']
+    servers => ['tick.usno.navy.mil','tock.usno.navy.mil ','ntp2.usno.navy.mil'],
   }
 
-  package { 'epel':
-    ensure => 'present'
+  exec { 'amazon-linux-extras install epel':
+    path    => '/bin',
+    creates => '/etc/yum.repos.d/epel.repo',
   }
 
   package { 'clamav':
-    ensure => 'present'
+    ensure  => 'installed',
+    require => Exec['amazon-linux-extras install epel'],
   }
 
 }
