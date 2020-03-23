@@ -10,7 +10,7 @@ class security {
     servers => ['tick.usno.navy.mil','tock.usno.navy.mil ','ntp2.usno.navy.mil'],
   }
 
-  exec { 'amazon-linux-extras install epel':
+  exec { 'amazon-linux-extras install epel && touch /root/epel_created':
     path    => '/bin',
     creates => '/etc/yum.repos.d/epel.repo',
   }
