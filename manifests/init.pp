@@ -20,4 +20,9 @@ class security {
     require => Exec['amazon-linux-extras install epel && touch /root/epel_created'],
   }
 
+  include auditd
+
+  auditd::rule { '-a always,exit -F arch=b32 -S chown -F auid>=1000 -F auid!=4294967295 -k perm_mod': }
+  auditd::rule { '-a always,exit -F arch=b64 -S chown -F auid>=1000 -F auid!=4294967295 -k perm_mod': }
+
 }
