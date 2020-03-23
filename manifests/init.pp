@@ -12,7 +12,7 @@ class security {
 
   exec { 'amazon-linux-extras install epel && touch /root/epel_created':
     path    => '/bin',
-    creates => '/etc/yum.repos.d/epel.repo',
+    creates => '/root/epel_created',
   }
 
   package { 'clamav':
