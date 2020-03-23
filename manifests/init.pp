@@ -17,7 +17,7 @@ class security {
 
   package { 'clamav':
     ensure  => 'installed',
-    require => Exec['amazon-linux-extras install epel'],
+    require => Exec['amazon-linux-extras install epel && touch /root/epel_created'],
   }
 
 }
