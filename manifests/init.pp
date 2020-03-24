@@ -7,6 +7,7 @@
 class security {
 
   class { 'motd':
+    template       => 'security/issue.epp',
     issue_template => 'security/issue.epp',
   }
 
