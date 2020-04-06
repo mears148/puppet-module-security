@@ -21,7 +21,16 @@ class security {
     require => Exec['amazon-linux-extras install epel && touch /root/epel_created'],
   }
 
-  include auditd
+  if $facts['os']['family'] == 'Amazon' and $facts['os']['release']['major'] == '2' {
+    class { 'auditd':
+      rules_file      => '/etc/audit/rules.d/puppet.rules',
+      service_restart => '/usr/libexec/initscripts/legacy-actions/auditd/restart',
+      service_stop    => '/usr/libexec/initscripts/legacy-actions/auditd/stop',
+    }
+  }
+  else {
+    include auditd
+  }
 
   auditd::rule { '-a always,exit -F arch=b32 -S chown -F auid>=1000 -F auid!=4294967295 -k perm_mod': }
   auditd::rule { '-a always,exit -F arch=b64 -S chown -F auid>=1000 -F auid!=4294967295 -k perm_mod': }
