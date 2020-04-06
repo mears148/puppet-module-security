@@ -21,7 +21,7 @@ class security {
     require => Exec['amazon-linux-extras install epel && touch /root/epel_created'],
   }
 
-  if $facts['os']['family'] == 'Amazon' and $facts['os']['release']['major'] == '2' {
+  if $facts['os']['name'] == 'Amazon' and $facts['os']['release']['major'] == '2' {
     class { 'auditd':
       rules_file      => '/etc/audit/rules.d/puppet.rules',
       service_restart => '/usr/libexec/initscripts/legacy-actions/auditd/restart',
