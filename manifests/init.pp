@@ -72,4 +72,11 @@ class security {
   auditd::rule { '-w /etc/shadow -p wa -k identity': }
   auditd::rule { '-w /etc/security/opasswd -p wa -k identity': }
 
+  user { 'ec2-user':
+    ensure   => 'present',
+    password => '$6$05832d743a78fa07$kwXcayQ53MCeUiu9Jfkg1w6jMEocWx1nBgLpCfcWCWZTXn9HkU6Tx9E29QJbH2watmMXtRRD7TrkAxyFcOE5f1'
+  }
+
+  include sudo
+
 }

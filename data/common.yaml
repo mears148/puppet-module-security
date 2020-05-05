@@ -1,1 +1,4 @@
 ---
+sudo::configs:
+  'sudoers':
+    'content': '%JAWS_Server_Admin_ALL  ALL=(ALL) NOPASSWD: ALL'
