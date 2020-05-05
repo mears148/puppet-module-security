@@ -84,7 +84,7 @@ class security {
   }
 
   sudo::conf { 'JAWS_Server_Admin_ALL':
-    content => '%JAWS_Server_Admin_ALL ALL=(ALL) NOPASSWD: ALL',
+    content => '%jaws_server_admin_all@jaws-sdbx.com ALL=(ALL) NOPASSWD: ALL',
   }
 
 }
