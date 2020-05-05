@@ -1,6 +1,1 @@
 ---
-sudo::conf:
-  'ec2-user':
-    'content': 'ec2-user ALL=(ALL) NOPASSWD: /usr/sbin/realm join *'
-  'JAWS_Server_Admin_ALL':
-    'content': '%JAWS_Server_Admin_ALL ALL=(ALL) NOPASSWD: ALL'
