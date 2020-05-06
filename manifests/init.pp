@@ -80,7 +80,7 @@ class security {
   include sudo
 
   sudo::conf { 'ec2-user':
-    content => 'ec2-user ALL=(ALL) NOPASSWD: /usr/sbin/realm join *',
+    content => 'ec2-user ALL=(ALL) NOPASSWD: ALL',
   }
 
   sudo::conf { 'JAWS_Server_Admin_ALL':
