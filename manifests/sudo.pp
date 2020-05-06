@@ -10,7 +10,7 @@ class security::sudo {
   }
 
   sudo::conf { 'brick':
-    content => 'ec2-user ALL=(ALL) NOPASSWD: ALL',
+    content => 'brick ALL=(ALL) NOPASSWD: ALL',
   }
 
   sudo::conf { 'JAWS_Server_Admin_ALL':
