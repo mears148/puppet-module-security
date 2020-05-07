@@ -13,8 +13,8 @@ class security::sudo {
     content => 'brick ALL=(ALL) NOPASSWD: ALL',
   }
 
-  sudo::conf { 'JAWS_Server_Admin_ALL':
-    content => '%jaws_server_admin_all@jaws-sdbx.com ALL=(ALL) NOPASSWD: ALL',
+  sudo::conf { 'JAWS_Server_Admin_Common':
+    content => '%jaws_server_admin_common@jaws-sdbx.com ALL=(ALL) NOPASSWD: ALL',
   }
 
 }
