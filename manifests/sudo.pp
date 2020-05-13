@@ -15,7 +15,7 @@ class security::sudo (
     content => 'brick ALL=(ALL) NOPASSWD: ALL',
   }
 
-  if $facts['ec2_metadata']['instance-id'] == $admin_all_only {
+  if $facts['ec2_metadata']['instance-id'] in $admin_all_only {
     sudo::conf { 'JAWS_Server_Admin_ALL':
       content => '%jaws_server_admin_all@jaws-sdbx.com ALL=(ALL) NOPASSWD: ALL',
     }
