@@ -1,1 +1,4 @@
 ---
+security::sudo::admin_all_only:
+  - i-0e589f0c6e75eb567 #PuppetServer
+  - i-0bfc45a1319ca58f3 #CloudTeamLinuxAdmin
