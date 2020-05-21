@@ -8,6 +8,7 @@ class security::auditd {
       rules_file      => '/etc/audit/rules.d/puppet.rules',
       service_restart => '/usr/libexec/initscripts/legacy-actions/auditd/restart',
       service_stop    => '/usr/libexec/initscripts/legacy-actions/auditd/stop',
+      log_group       => 'cwagent',
     }
   }
   else {
