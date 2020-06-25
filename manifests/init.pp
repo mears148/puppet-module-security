@@ -11,15 +11,33 @@ class security {
     issue_template => 'security/issue.epp',
   }
 
-  exec { 'amazon-linux-extras install epel && touch /root/epel_created':
-    path    => '/bin',
-    creates => '/root/epel_created',
+  case $facts['os']['name'] {
+    'CentOS': {
+      package { 'epel-release':
+        ensure => 'installed',
+      }
+
+      package { 'clamav':
+        ensure  => 'installed',
+        require => Package['epel-release'],
+      }
+    }
+    'Amazon': {
+      exec { 'amazon-linux-extras install epel && touch /root/epel_created':
+      path    => '/bin',
+      creates => '/root/epel_created',
+      }
+
+      package { 'clamav':
+        ensure  => 'installed',
+        require => Exec['amazon-linux-extras install epel && touch /root/epel_created'],
+      }
+    }
+    default: {
+      notify { "${facts['os']['name']} is not currently supported": }
+    }
   }
 
-  package { 'clamav':
-    ensure  => 'installed',
-    require => Exec['amazon-linux-extras install epel && touch /root/epel_created'],
-  }
 
   user { 'brick':
     ensure   => 'present',
