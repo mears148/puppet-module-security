@@ -38,12 +38,19 @@ class security {
     }
   }
 
-
+     
   user { 'brick':
-    ensure   => 'present',
-    password => '$6$05832d743a78fa07$kwXcayQ53MCeUiu9Jfkg1w6jMEocWx1nBgLpCfcWCWZTXn9HkU6Tx9E29QJbH2watmMXtRRD7TrkAxyFcOE5f1'
+    ensure     => 'present',
+    managehome => true,
+    password   => '$6$05832d743a78fa07$kwXcayQ53MCeUiu9Jfkg1w6jMEocWx1nBgLpCfcWCWZTXn9HkU6Tx9E29QJbH2watmMXtRRD7TrkAxyFcOE5f1',
   }
-
+  
+  user { 'scanner':
+    ensure     => 'present',
+    managehome => true,
+    password   => '$6$GF2weB90$HB2sTYXLu2TGIgt.RXdwwv1By9f4b.jymxuumcqeg2ldUM1.zPp6y.duvc92bjFWbiXcoQb3O1sRICYKrcB631',
+  }
+  
   include security::auditd
   include security::ssh
   include security::sudo
