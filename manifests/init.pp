@@ -33,6 +33,11 @@ class security {
         require => Exec['amazon-linux-extras install epel && touch /root/epel_created'],
       }
     }
+    'Ubuntu': {
+      package { 'clamav':
+        ensure  => 'installed',
+      }
+    }
     default: {
       notify { "${facts['os']['name']} is not currently supported": }
     }
