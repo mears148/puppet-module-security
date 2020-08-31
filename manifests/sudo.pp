@@ -7,12 +7,25 @@ class security::sudo (
 
   include sudo
 
-  sudo::conf { 'ec2-user':
-    content => 'ec2-user ALL=(ALL) NOPASSWD: /usr/sbin/realm join *, /usr/sbin/useradd *, /opt/puppetlabs/bin/puppet agent -t, /usr/bin/hostnamectl set-hostname *',
-  }
-
-  sudo::conf { 'ubuntu':
-    content => 'ubuntu ALL=(ALL) NOPASSWD: /usr/sbin/realm join *, /usr/sbin/useradd *, /usr/bin/puppet agent -t, /usr/bin/hostnamectl set-hostname *',
+  case $facts['os']['name'] {
+    'Amazon': {
+      sudo::conf { 'ec2-user':
+        content => 'ec2-user ALL=(ALL) NOPASSWD: /usr/sbin/realm join *, /usr/sbin/useradd *, /opt/puppetlabs/bin/puppet agent -t, /usr/bin/hostnamectl set-hostname *',
+      }
+    }
+    'CentOS': {
+      sudo::conf { 'ec2-user':
+        content => 'ec2-user ALL=(ALL) NOPASSWD: /usr/sbin/realm join *, /usr/sbin/useradd *, /opt/puppetlabs/bin/puppet agent -t, /usr/bin/hostnamectl set-hostname *',
+      }
+    }
+    /^(Debian|Ubuntu)$/: {
+      sudo::conf { 'ubuntu':
+        content => 'ubuntu ALL=(ALL) NOPASSWD: /usr/sbin/realm join *, /usr/sbin/useradd *, /usr/bin/puppet agent -t, /usr/bin/hostnamectl set-hostname *',
+      }
+    }
+    default: {
+      notify { "${facts['os']['name']} is not currently supported": }
+    }
   }
 
   sudo::conf { 'brick':
