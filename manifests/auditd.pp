@@ -39,12 +39,12 @@ class security::auditd {
   auditd::rule { '-a always,exit -F arch=b64 -S open -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access': }
   auditd::rule { '-w /var/run/faillock -p wa -k logins': }
   auditd::rule { '-w /var/log/lastlog -p wa -k logins': }
-  auditd::rule { '-w /var/log/faillog -p wa': }
   auditd::rule { '-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount': }
   auditd::rule { '-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount': }
   auditd::rule { '-a always,exit -F path=/usr/bin/mount -F auid>=1000 -F auid!=4294967295 -k privileged-mount': }
   auditd::rule { '-a always,exit -F path=/usr/bin/umount -F auid>=1000 -F auid!=4294967295 -k privileged-mount': }
   auditd::rule { '-w /etc/passwd -p wa -k identity': }
+  auditd::rule { '-w /etc/passwd -p wa -k passwd_changes': }
   auditd::rule { '-a always,exit -F arch=b32 -S rename -F auid>=1000 -F auid!=4294967295 -k delete': }
   auditd::rule { '-a always,exit -F arch=b64 -S rename -F auid>=1000 -F auid!=4294967295 -k delete': }
   auditd::rule { '-a always,exit -F arch=b32 -S renameat -F auid>=1000 -F auid!=4294967295 -k delete': }
@@ -55,7 +55,11 @@ class security::auditd {
   auditd::rule { '-w /etc/gshadow -p wa -k identity': }
   auditd::rule { '-w /etc/shadow -p wa -k identity': }
   auditd::rule { '-w /etc/security/opasswd -p wa -k identity': }
-#  auditd::rule { '-w /etc/passwd -p wa' }
-#  auditd::rule { '-a always,exit -F euid=) -F perm=wxa -k ROOT_ACTION' }
+  auditd::rule { '-w /sbin/shutdown': }
+  auditd::rule { '-w /sbin/reboot': }
+  auditd::rule { '-a entry,always -S execve -F uid=0': }
+  auditd::rule { '-a always,exit -F arch=b64 -S mount -S umount2 -F dir=/media -k media': }
+  auditd::rule { '-w /bin/systemctl': }
+  auditd::rule { '-w /usr/bin/print': }
 
 }
