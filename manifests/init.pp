@@ -21,6 +21,11 @@ class security {
         ensure  => 'installed',
         require => Package['epel-release'],
       }
+
+      class { 'yum_cron':
+        apply_updates => true,
+        update_cmd    => security,
+      }
     }
     'Amazon': {
       exec { 'amazon-linux-extras install epel && touch /root/epel_created':
@@ -31,6 +36,11 @@ class security {
       package { 'clamav':
         ensure  => 'installed',
         require => Exec['amazon-linux-extras install epel && touch /root/epel_created'],
+      }
+
+      class { 'yum_cron':
+        apply_updates => true,
+        update_cmd    => security,
       }
     }
     'Ubuntu': {
