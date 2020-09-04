@@ -8,12 +8,7 @@ class security::sudo (
   include sudo
 
   case $facts['os']['name'] {
-    'Amazon': {
-      sudo::conf { 'ec2-user':
-        content => 'ec2-user ALL=(ALL) NOPASSWD: /usr/sbin/realm join *, /usr/sbin/useradd *, /opt/puppetlabs/bin/puppet agent -t, /usr/bin/hostnamectl set-hostname *',
-      }
-    }
-    'CentOS': {
+    /^(Amazon|CentOS|RedHat)$/: {
       sudo::conf { 'ec2-user':
         content => 'ec2-user ALL=(ALL) NOPASSWD: /usr/sbin/realm join *, /usr/sbin/useradd *, /opt/puppetlabs/bin/puppet agent -t, /usr/bin/hostnamectl set-hostname *',
       }
