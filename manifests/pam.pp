@@ -5,8 +5,6 @@ class security::pam (
   Array $pwquality_rules,
 ){
 
-  include pam
-
   case $facts['os']['name'] {
     /^(Amazon|CentOS|RedHat)$/: {
       file { '/etc/security/pwquality.conf':
@@ -16,4 +14,5 @@ class security::pam (
     }
     default: {}
   }
+
 }
