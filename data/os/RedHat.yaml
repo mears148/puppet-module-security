@@ -1,0 +1,11 @@
+---
+security::pam::pwquality_rules:
+  - ucredit = -1
+  - lcredit = -1
+  - dcredit = -1
+  - ocredit = -1
+  - difok = 8
+  - minclass = 4
+  - maxrepeat = 3
+  - maxclassrepeat = 4
+  - minlen = 15
