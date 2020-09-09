@@ -101,7 +101,8 @@ class security::pam (
 
       class { 'pam':
         pam_auth_lines     => [
-          'auth  [success=1 default=ignore]  pam_unix.so nullok_secure',
+          'auth  [success=2 default=ignore]  pam_unix.so nullok_secure',
+          'auth  [success=1 default=ignore]  pam_sss.so use_first_pass',
           'auth  requisite     pam_deny.so',
           'auth  required      pam_permit.so',
           'auth  optional      pam_cap.so',
@@ -110,13 +111,16 @@ class security::pam (
           'account [success=1 new_authtok_reqd=done default=ignore]  pam_unix.so',
           'account requisite     pam_deny.so',
           'account required      pam_permit.so',
+          'account sufficient    pam_localuser.so',
+          'account [default=bad success=ok user_unknown=ignore] pam_sss.so',
         ],
         pam_password_lines => [
+          # UBTU-18-010116
+          'password  requisite     pam_pwquality.so retry=3',
           # UBTU-18-010108
           # UBTU-18-010110
           'password  [success=1 default=ignore]  pam_unix.so obscure sha512 remember=5',
-          # UBTU-18-010116
-          'password  requisite     pam_pwquality.so retry=3',
+          'password  sufficient    pam_sss.so use_authtok',
           'password  requisite     pam_deny.so',
           'password  required      pam_permit.so',
         ],
@@ -126,6 +130,7 @@ class security::pam (
           'session required      pam_permit.so',
           'session optional      pam_umask.so',
           'session required      pam_unix.so',
+          'session optional      pam_sss.so',
           'session optional      pam_systemd.so',
         ],
       }
