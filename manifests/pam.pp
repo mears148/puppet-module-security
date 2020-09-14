@@ -3,6 +3,7 @@
 #
 class security::pam (
   Array $pwquality_rules,
+  Optional[Array[String]] $allowed_users,
 ){
 
   case $facts['os']['name'] {
@@ -12,6 +13,10 @@ class security::pam (
         content => epp('security/pwquality.conf.epp'),
       }
       class { 'pam':
+        # PAM access is managed through password_auth and system_auth
+        sshd_pam_access             => 'absent',
+        allowed_users               => $allowed_users,
+        manage_nsswitch             => false,
         pam_auth_lines              => [
           'auth        required      pam_env.so',
           'auth        required      pam_faillock.so preauth silent audit deny=3 even_deny_root fail_interval=900 unlock_time=900',
@@ -100,6 +105,9 @@ class security::pam (
       }
 
       class { 'pam':
+        sshd_pam_access    => 'absent',
+        allowed_users      => $allowed_users,
+        manage_nsswitch    => false,
         pam_auth_lines     => [
           'auth  [success=2 default=ignore]  pam_unix.so nullok_secure',
           'auth  [success=1 default=ignore]  pam_sss.so use_first_pass',

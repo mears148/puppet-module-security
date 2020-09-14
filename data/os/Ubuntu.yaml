@@ -8,3 +8,5 @@ security::pam::pwquality_rules:
   - dictcheck = 1
   - enforcing = 1
   - ocredit = -1
+security::pam::allowed_users:
+  - ALL

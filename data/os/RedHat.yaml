@@ -9,3 +9,5 @@ security::pam::pwquality_rules:
   - maxrepeat = 3
   - maxclassrepeat = 4
   - minlen = 15
+security::pam::allowed_users:
+  - ALL
