@@ -66,6 +66,7 @@ class security {
   }
 
   include security::auditd
+  include security::pam
   include security::ssh
   include security::sudo
 
