@@ -127,7 +127,7 @@ class security::pam (
           'password  requisite     pam_pwquality.so retry=3',
           # UBTU-18-010108
           # UBTU-18-010110
-          'password  [success=1 default=ignore]  pam_unix.so obscure sha512 remember=5',
+          'password  [success=2 default=ignore]  pam_unix.so obscure sha512 remember=5',
           'password  sufficient    pam_sss.so use_authtok',
           'password  requisite     pam_deny.so',
           'password  required      pam_permit.so',
